@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+#define in freopen("input.txt", "r", stdin);
+#define out freopen("output.txt", "w", stdout);
+using namespace std;
+int main()
+{
+    in;
+    out;
+    int n, forbidden[10005], minx = 1e5, a, b, x, i, j;
+    map<int, int>used;
+    cin >> n;
+    for(i = 1; i <= n; i ++) {
+        cin >> forbidden[i];
+        used[forbidden[i]] ++;
+    }
+    cin >> a >> b >> x;
+    queue< pair<int, pair<int, string> > > q;
+    q.push(make_pair(0, make_pair(0, "front")));
+    used[0] ++;
+    while(!q.empty()) {
+        int element = q.front().first, ans = q.front().second.first;
+        string side = q.front().second.second;
+        q.pop();
+        if(element == x && minx > ans)minx = ans;
+        if(element + a <= 5000 && used[element + a] == 0) {
+            used[element + a] ++;
+            q.push(make_pair(element + a, make_pair(ans + 1, "front")));
+        }
+        else if(element - b >= -2000 && used[element - b] == 0 && side != "back") {
+            used[element - b] ++;
+            q.push(make_pair(element - b, make_pair(ans + 1, "back")));
+        }
+    }
+    if(minx == 1e5) cout << -1 << endl;
+    else cout << minx << endl;
+}

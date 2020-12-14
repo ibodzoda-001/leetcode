@@ -26,7 +26,7 @@ int main()
             used[element + a] ++;
             q.push(make_pair(element + a, make_pair(ans + 1, "front")));
         }
-        else if(element - b >= -2000 && used[element - b] == 0 && side != "back") {
+        if(element - b >= -3000 && used[element - b] == 0 && side != "back") {
             used[element - b] ++;
             q.push(make_pair(element - b, make_pair(ans + 1, "back")));
         }
